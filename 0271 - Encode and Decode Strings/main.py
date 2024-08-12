@@ -2,27 +2,30 @@ from typing import List
 
 
 class Solution:
-   def encode(self, strs: List[str]) -> str:
-       res = ""
-       for s in strs:
-            res += f"{len(s)}#{s}"
-       return res
 
-   def decode(self, s: str) -> List[str]:
-       res = []
-       i = 0
+    def encode(self, strs: List[str]) -> str:
+        res = ""
+        for s in strs:
+            res += str(len(s)) + "#" + s
+        return res
 
-       while i < len(s):
+    def decode(self, s: str) -> List[str]:
+        res = []
+        i = 0
+
+        # i will iterate through the encoded string
+        # j will iterate through each individual string
+        while (i < len(s)):
             j = i
-
             while (s[j] != "#"):
                 j += 1
-            # The number will be from i (the beginning) until before we hit j (the # sign)
-            length = int(s[i:j])  # the length of the next word
 
-            i = j + 1  # adjust i so it begins at the next work
-            j = i + length  # adjust j so it is at the start of the new word
+            # length will be from the start to before the "#" symbol
+            length = int(s[i:j])
+
+            i = j + 1  # place i at the start of the str
+            j = i + length  # place j at the start of the next str
             res.append(s[i:j])
-            i = j
 
-       return res
+            i = j  # repeat the process
+        return res
